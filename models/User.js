@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
     enum: ['user', 'restaurant'],
     default: 'user',
   },
+  address: {
+    type: String,
+    required: false,
+  },
   // Adding location to user as well, so we can calculate distance easily
   location: {
     type: {
