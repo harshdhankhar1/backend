@@ -32,7 +32,7 @@ const createOrder = async (req, res) => {
     const options = {
       amount: Math.round(totalAmount * 100), 
       currency: "INR",
-      receipt: `receipt_${Date.now()}_${req.user._id}`,
+      receipt: `rcpt_${Date.now()}`,
     };
 
     const order = await razorpay.orders.create(options);
@@ -44,7 +44,11 @@ const createOrder = async (req, res) => {
       totalAmount, // returning original total for our reference
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Razorpay Create Order Error:", error);
+    res.status(500).json({ 
+      message: error.description || error.message || "Unknown Razorpay Error", 
+      error 
+    });
   }
 };
 
